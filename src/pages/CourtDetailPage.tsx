@@ -146,7 +146,11 @@ export function CourtDetailPage({ onConsultForCourt }: CourtDetailPageProps) {
           <div className="space-y-3">
             <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground tabular-nums">
               <span className="font-semibold text-primary">
-                {court.tier === "supreme" ? "Supreme Court" : "High Court"}
+                {court.tier === "supreme"
+                  ? "Supreme Court"
+                  : court.tier === "tribunal"
+                  ? "Appellate Tribunal"
+                  : "High Court"}
               </span>
               <span aria-hidden="true">·</span>
               <span>{court.city}</span>

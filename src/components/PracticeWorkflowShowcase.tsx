@@ -25,7 +25,7 @@ const STAGES = [
     shortLabel: "01. Audit & Filing",
     headline: "Statutory Audit, SCN Reply & Writ Filing",
     summary:
-      "Every tax notice, Section 148 reassessment, or corporate petition is vetted line by line by Adv. Sanjay Kumar Singh—aligning financial computation with writ maintainability.",
+      "Every tax notice, GST return mismatch, Section 148 reassessment, or corporate petition is vetted line by line by Advocate Sanjay Kumar Singh—aligning financial computation with writ maintainability.",
     metricLabel: "Statutory Scrutiny",
     metricTarget: 100,
     nodes: [
@@ -51,11 +51,11 @@ const STAGES = [
     step: "02",
     label: "Tax & NCLT Benches",
     shortLabel: "02. Benches",
-    headline: "High Courts, NCLT & Tax Tribunals",
+    headline: "High Courts, GSTAT & Tax Tribunals",
     summary:
-      "Track connected corporate appeals, GST writ petitions, and tax orders across the High Court of Delhi, Supreme Court of India, and eleven regional High Courts.",
-    metricLabel: "12 Constitutional Benches",
-    metricTarget: 12,
+      "Track connected corporate appeals, GST writ petitions, and tax orders across the Supreme Court, High Court of Delhi, GSTAT, and eleven regional High Courts.",
+    metricLabel: "13 Courts & Tribunals",
+    metricTarget: 13,
     nodes: [
       {
         title: "Delhi High Court Tax Bench",
@@ -82,7 +82,7 @@ const STAGES = [
     headline: "Quashed Demands & Board Closure",
     summary:
       "Focused oral submissions on statutory interpretation, certified copy collection, and clear post-order guidance for CFOs, tax teams, and company boards.",
-    metricLabel: "Enterprise Resolution",
+    metricLabel: "Corporate Resolution",
     metricTarget: 100,
     nodes: [
       {
@@ -143,7 +143,7 @@ export function PracticeWorkflowShowcase({
             </h2>
           </div>
           <p className="lg:col-span-5 text-sm sm:text-base text-[#33566D] leading-relaxed">
-            Every enterprise matter follows a disciplined chambers sequence—from GST and income tax computation scrutiny to daily bench tracking across Delhi and regional High Courts.
+            Every business matter follows a disciplined chambers sequence—from Income Tax &amp; GST computation scrutiny to daily bench tracking across GSTAT, Delhi, and regional High Courts.
           </p>
         </div>
 
@@ -369,7 +369,7 @@ export function PracticeWorkflowShowcase({
               className="inline-flex items-center justify-center sm:justify-end gap-2 text-xs font-bold uppercase tracking-[0.08em] text-[#0A2536] hover:text-[#33566D] transition-colors min-h-[40px]"
             >
               <Landmark className="h-4 w-4 text-[#33566D]" aria-hidden="true" />
-              Open 12 Live Courts
+              Open 13 Live Courts &amp; GSTAT
               <ShieldCheck className="h-4 w-4 text-[#33566D]" aria-hidden="true" />
             </Link>
           </div>

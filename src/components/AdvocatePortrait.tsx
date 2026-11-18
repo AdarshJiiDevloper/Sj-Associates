@@ -11,7 +11,7 @@ interface AdvocatePortraitProps {
 }
 
 /**
- * Displays Adv. Sanjay Kumar Singh's portrait directly from the uploaded chambers image,
+ * Displays Advocate Sanjay Kumar Singh's portrait directly from the uploaded chambers image,
  * cleanly framed to isolate the courtroom-gown portrait without left-side festival graphics.
  */
 export function AdvocatePortrait({ className, showPlaque = true }: AdvocatePortraitProps) {

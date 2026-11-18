@@ -40,10 +40,10 @@ export function AboutPage({ onOpenConsultation }: AboutPageProps) {
 
               <div className="space-y-4 text-base text-muted-foreground leading-relaxed">
                 <p className="text-lg font-medium text-foreground leading-relaxed">
-                  SJ Associates is a New Delhi corporate and taxation law practice led by Adv. Sanjay Kumar Singh, practicing at the High Court of Delhi and serving as a Member of the International Council Of Jurists.
+                  SJ Associates is a New Delhi corporate and taxation law practice led by Advocate Sanjay Kumar Singh, practicing at the High Court of Delhi and serving as a Member of the International Council Of Jurists.
                 </p>
                 <p>
-                  Whether an enterprise is contesting an arbitrary GST demand, an Income Tax Section 148 reassessment, a customs valuation order, an NCLT insolvency notice, or a shareholder dispute, our chambers focus exclusively on corporate and tax advocacy before the High Court of Delhi, the Supreme Court of India, ITAT, CESTAT, and NCLAT.
+                  Whether a company is handling GST &amp; income tax filings, contesting a wrongful GST demand, an Income Tax Section 148 reassessment, a customs valuation order, a GSTAT appeal, or an NCLT dispute, our chambers focus exclusively on taxation, setup, and corporate advocacy before the High Court of Delhi, the Supreme Court of India, GSTAT, ITAT, CESTAT, and NCLAT.
                 </p>
               </div>
 
@@ -68,7 +68,7 @@ export function AboutPage({ onOpenConsultation }: AboutPageProps) {
           <div className="lg:col-span-6 aspect-[4/3] overflow-hidden rounded-[20px] border border-border bg-[#0A2536]">
             <ResilientImage
               src={ADVOCATE_DESK_IMAGE}
-              alt="Adv. Sanjay Kumar Singh reviewing appellate briefs inside SJ Associates chambers in New Delhi"
+              alt="Advocate Sanjay Kumar Singh reviewing appellate briefs inside SJ Associates chambers in New Delhi"
               fallbackLabel="SJ Associates Chambers"
               imgClassName="object-cover object-center"
             />
@@ -81,7 +81,7 @@ export function AboutPage({ onOpenConsultation }: AboutPageProps) {
               Thorough Paper Preparation Before Every Hearing
             </h2>
             <p className="text-sm sm:text-base text-[#33566D] leading-relaxed">
-              From GST and direct tax computation audits to commercial contract indexing and NCLT paperbooks, every corporate file at SJ Associates is personally reviewed by Adv. Sanjay Kumar Singh before entering court.
+              From GST and direct tax computation audits to commercial contract indexing and NCLT paperbooks, every corporate file at SJ Associates is personally reviewed by Advocate Sanjay Kumar Singh before entering court.
             </p>
             <div className="grid grid-cols-2 gap-3 pt-2">
               <div className="rounded-xl bg-[#F3FAFF] border border-border p-3.5">

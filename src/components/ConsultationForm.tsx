@@ -34,6 +34,7 @@ export function ConsultationForm({
     referenceId: string;
     submittedAt: string;
     message: string;
+    emailForwarded?: boolean;
   } | null>(null);
 
   async function handleSubmit(e: FormEvent) {
@@ -68,7 +69,8 @@ export function ConsultationForm({
       setConfirmation({
         referenceId: data.referenceId,
         submittedAt: data.submittedAt,
-        message: data.message
+        message: data.message,
+        emailForwarded: Boolean(data.emailForwarded)
       });
       if (onSuccess) onSuccess();
     } catch {
@@ -93,6 +95,9 @@ export function ConsultationForm({
             </h4>
             <p className="text-sm text-muted-foreground leading-relaxed">
               {confirmation.message}
+              {confirmation.emailForwarded
+                ? " Delivered directly to sanjaysingh@legalsja.com."
+                : ""}
             </p>
           </div>
         </div>

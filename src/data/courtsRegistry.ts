@@ -1,7 +1,8 @@
-export type CourtTier = "supreme" | "high";
+export type CourtTier = "supreme" | "tribunal" | "high";
 
 export type CourtImageKey =
   | "supreme-court-of-india"
+  | "gstat"
   | "delhi-high-court"
   | "bombay-high-court"
   | "madras-high-court"
@@ -88,9 +89,8 @@ export interface ConsultationPayload {
 
 export function sortCourtsByDistanceFromDelhi(courts: CourtProfile[]): CourtProfile[] {
   return [...courts].sort((a, b) => {
-    if (a.tier !== b.tier) {
-      return a.tier === "supreme" ? -1 : 1;
-    }
+    if (a.tier === "supreme" && b.tier !== "supreme") return -1;
+    if (b.tier === "supreme" && a.tier !== "supreme") return 1;
     return a.distanceFromDelhiKm - b.distanceFromDelhiKm;
   });
 }
@@ -131,6 +131,24 @@ const UNSORTED_COURTS_REGISTRY: CourtProfile[] = [
       "Original Side commercial suits, Section 34/37 arbitration challenges, Intellectual Property Division (IPD) filings, and Article 226 writ petitions against central ministries and regulators.",
     summary:
       "Premier commercial and constitutional High Court featuring India's dedicated Intellectual Property Division (IPD) and Original Civil Jurisdiction."
+  },
+  {
+    slug: "gstat",
+    name: "GST Appellate Tribunal (GSTAT)",
+    shortName: "GSTAT (Principal Bench)",
+    tier: "tribunal",
+    city: "New Delhi",
+    distanceFromDelhiKm: 4,
+    stateOrJurisdiction: "All India GST Second-Appellate Jurisdiction (Sec. 112 CGST Act)",
+    region: "National",
+    establishedYear: 2024,
+    benches: ["Principal Bench, New Delhi", "State & Regional Benches Across India"],
+    officialUrl: "https://gstat.gov.in",
+    causeListUrl: "https://efiling.gstat.gov.in",
+    chambersPracticeNote:
+      "Second-level appellate representation under Section 112 of the CGST Act against Orders-in-Appeal (Section 107) and Revisional Orders (Section 108), pre-deposit structuring, and GSTAT e-Filing Portal hearings.",
+    summary:
+      "India's statutory second-level Goods and Services Tax Appellate Tribunal (Principal Bench in New Delhi), hearing GST demand, input tax credit, and valuation appeals under Section 112 CGST."
   },
   {
     slug: "punjab-haryana-high-court",
@@ -220,7 +238,7 @@ const UNSORTED_COURTS_REGISTRY: CourtProfile[] = [
     chambersPracticeNote:
       "GST show-cause & bank attachment stays, commercial infrastructure & PSU contract writs, direct tax appeals, and corporate compliance petitions across Bihar.",
     summary:
-      "Historic Centenary Chartered High Court seated at Patna, adjudicating GST, commercial contract, tax appellate, and enterprise writ petitions."
+      "Historic Centenary Chartered High Court seated at Patna, adjudicating GST, commercial contract, tax appellate, and corporate writ petitions."
   },
   {
     slug: "bombay-high-court",
@@ -256,7 +274,7 @@ const UNSORTED_COURTS_REGISTRY: CourtProfile[] = [
     chambersPracticeNote:
       "Pharmaceutical, IT/SEZ & biotech corporate tax writs, NCLT/IBC connected appeals, GST refunds, and commercial arbitration matters in Hyderabad.",
     summary:
-      "Principal appellate forum in Hyderabad governing corporate governance, customs/SEZ taxation, technology enterprises, and commercial litigation."
+      "Principal appellate forum in Hyderabad governing corporate governance, customs/SEZ taxation, technology companies, and commercial litigation."
   },
   {
     slug: "calcutta-high-court",
@@ -290,7 +308,7 @@ const UNSORTED_COURTS_REGISTRY: CourtProfile[] = [
     officialUrl: "https://karnatakajudiciary.kar.nic.in",
     causeListUrl: "https://karnatakajudiciary.kar.nic.in/causelist.php",
     chambersPracticeNote:
-      "Startup & enterprise corporate litigation, technology & fintech regulation writs, cross-border commercial disputes, and direct/GST tax appeals from our MG Road desk.",
+      "Startup & corporate litigation, technology & fintech regulation writs, cross-border commercial disputes, and direct/GST tax appeals from our MG Road desk.",
     summary:
       "Seated at Attara Kacheri in Bengaluru, adjudicating pivotal technology law, corporate governance, NCLT commercial challenges, and direct tax disputes."
   },

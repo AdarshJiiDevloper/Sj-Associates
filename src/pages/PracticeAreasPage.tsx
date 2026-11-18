@@ -25,7 +25,7 @@ export function PracticeAreasPage({ onOpenConsultation }: PracticeAreasPageProps
               Corporate &amp; Tax Practice Areas
             </h1>
             <p className="text-base text-muted-foreground leading-relaxed">
-              Exclusively focused on corporate, commercial, and taxation law—representing enterprises, CFOs, boards, and promoters across GST, income tax, customs, NCLT insolvency, and regulatory litigation.
+              Focused on Income Tax &amp; GST filings, GSTAT appeals, business setup, customs, NCLT insolvency, and corporate litigation—representing companies, founders, CFOs, and boards across Indian courts.
             </p>
           </div>
           <Button type="button" onClick={() => onOpenConsultation()} size="lg" className="shrink-0">
@@ -83,7 +83,7 @@ export function PracticeAreasPage({ onOpenConsultation }: PracticeAreasPageProps
               Follow Recent Orders From High Courts &amp; Supreme Court
             </h2>
             <p className="text-sm text-[#DAF6EF]/85">
-              Open our Courts page to read live updates and judgments from twelve Indian constitutional courts—including Delhi, Supreme Court, Chandigarh, and Patna.
+              Open our Courts page to read live updates and judgments from thirteen Indian courts and tribunals—including Supreme Court, Delhi HC, GSTAT, Chandigarh, and Patna.
             </p>
           </div>
           <Button asChild className="bg-[#DAF6EF] text-[#0A2536] hover:bg-white shrink-0">

@@ -27,10 +27,10 @@ import { ContactPage } from "@/src/pages/ContactPage";
 import { MailPage } from "@/src/pages/MailPage";
 
 const ROUTE_TITLES: Record<string, string> = {
-  "/": "SJ Associates | Adv. Sanjay Kumar Singh — Corporate & Tax Law Chambers",
-  "/courts": "Live Corporate & Tax Court Reports | SJ Associates",
-  "/practice": "Corporate & Tax Practice Areas | SJ Associates — Adv. Sanjay Kumar Singh",
-  "/about": "Adv. Sanjay Kumar Singh | Corporate & Tax Counsel — SJ Associates",
+  "/": "SJ Associates | Advocate Sanjay Kumar Singh — Corporate & Tax Law Chambers",
+  "/courts": "Live Supreme Court, GSTAT & High Court Reports | SJ Associates",
+  "/practice": "Corporate & Tax Practice Areas | SJ Associates — Advocate Sanjay Kumar Singh",
+  "/about": "Advocate Sanjay Kumar Singh | Corporate & Tax Counsel — SJ Associates",
   "/contact": "Contact Chambers | SJ Associates — New Delhi, Mumbai & Bengaluru",
   "/mail": "Chambers Webmail | SJ Associates (legalsja.com)"
 };
@@ -155,7 +155,7 @@ function AppShell() {
         className="md:hidden fixed bottom-0 inset-x-0 z-30 border-t border-border bg-[#F3FAFF]/95 backdrop-blur-md px-3 py-2 flex items-center justify-between gap-2 shadow-[0_-4px_18px_rgba(10,37,54,0.08)]"
       >
         <a
-          href="tel:+911143089210"
+          href="tel:+919716318400"
           className="flex-1 min-h-[42px] inline-flex items-center justify-center gap-1.5 rounded-full border border-border bg-white text-[11px] font-bold uppercase tracking-wider text-[#0A2536]"
         >
           <Phone className="h-3.5 w-3.5 text-[#33566D]" aria-hidden="true" />
@@ -183,7 +183,7 @@ function AppShell() {
           <DialogHeader>
             <DialogTitle>Schedule a Corporate &amp; Tax Consultation</DialogTitle>
             <DialogDescription>
-              Share a short overview of your GST, direct tax, NCLT, or corporate dispute to arrange a chambers briefing with Adv. Sanjay Kumar Singh.
+              Share a short overview of your GST, income tax, GSTAT, business setup, or corporate matter to arrange a chambers briefing with Advocate Sanjay Kumar Singh.
             </DialogDescription>
           </DialogHeader>
           <ConsultationForm

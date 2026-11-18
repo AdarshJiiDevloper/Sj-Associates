@@ -61,7 +61,7 @@ export function Header({ onOpenConsultation }: HeaderProps) {
         {/* Zone 3: Call icon circle + Primary CTA button */}
         <div className="flex items-center gap-2.5 shrink-0">
           <a
-            href="tel:+911143089210"
+            href="tel:+919716318400"
             aria-label="Call SJ Associates Chambers"
             className="hidden sm:inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-white text-[#0A2536] hover:bg-[#DAF6EF] transition-colors"
           >
@@ -110,7 +110,7 @@ export function Header({ onOpenConsultation }: HeaderProps) {
           </nav>
           <div className="pt-3 border-t border-border grid grid-cols-2 gap-2.5">
             <a
-              href="tel:+911143089210"
+              href="tel:+919716318400"
               className="min-h-[44px] inline-flex items-center justify-center gap-2 rounded-full border border-border bg-[#F3FAFF] px-4 text-xs font-bold uppercase tracking-wider text-[#0A2536]"
             >
               <Phone className="h-3.5 w-3.5" aria-hidden="true" />

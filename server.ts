@@ -106,6 +106,8 @@ function buildCourtSearchQuery(court: CourtProfile): string {
   switch (court.slug) {
     case "supreme-court-of-india":
       return '"Supreme Court of India"';
+    case "gstat":
+      return '"GST Appellate Tribunal" OR GSTAT';
     case "punjab-haryana-high-court":
       return '"Punjab and Haryana High Court"';
     case "calcutta-high-court":
@@ -228,14 +230,14 @@ async function fetchCrossCourtBriefings() {
   if (ai) {
     try {
       const today = new Date().toISOString().slice(0, 10);
-      const prompt = `Today's date is ${today}. Search for the latest major judgments and orders across the Supreme Court of India and Indian High Courts (such as Delhi High Court, Punjab and Haryana High Court at Chandigarh, Patna High Court, Bombay High Court, Madras High Court, Calcutta High Court, Karnataka High Court, Allahabad High Court, Gujarat High Court, Rajasthan High Court, Telangana High Court).
+      const prompt = `Today's date is ${today}. Search for the latest major judgments, rulings, and notices across the Supreme Court of India, GST Appellate Tribunal (GSTAT), and Indian High Courts (such as Delhi High Court, Punjab and Haryana High Court at Chandigarh, Patna High Court, Bombay High Court, Madras High Court, Calcutta High Court, Karnataka High Court, Allahabad High Court, Gujarat High Court, Rajasthan High Court, Telangana High Court).
 
 Return ONLY a valid JSON object inside \`\`\`json ... \`\`\` with:
 {
   "items": [
     {
-      "courtSlug": "One of: supreme-court-of-india | delhi-high-court | bombay-high-court | punjab-haryana-high-court | patna-high-court | madras-high-court | calcutta-high-court | karnataka-high-court | allahabad-high-court | gujarat-high-court | rajasthan-high-court | telangana-high-court",
-      "courtName": "Official Court Name",
+      "courtSlug": "One of: supreme-court-of-india | gstat | delhi-high-court | bombay-high-court | punjab-haryana-high-court | patna-high-court | madras-high-court | calcutta-high-court | karnataka-high-court | allahabad-high-court | gujarat-high-court | rajasthan-high-court | telangana-high-court",
+      "courtName": "Official Court or Tribunal Name",
       "title": "Editorial legal headline of the ruling",
       "citation": "Case title or citation",
       "date": "Month DD, YYYY",
@@ -245,7 +247,7 @@ Return ONLY a valid JSON object inside \`\`\`json ... \`\`\` with:
     }
   ]
 }
-Include 6 recent items spanning the Supreme Court and multiple High Courts including Chandigarh (Punjab and Haryana HC) and Patna High Court when relevant.`;
+Include 6 recent items spanning the Supreme Court, GSTAT, and High Courts including Delhi, Chandigarh (Punjab and Haryana HC), and Patna High Court when relevant.`;
 
       const response = await ai.models.generateContent({
         model: "gemini-4-hydrogen",
@@ -318,7 +320,7 @@ Include 6 recent items spanning the Supreme Court and multiple High Courts inclu
 
   const items = feedSettled
     .flatMap((res) => (res.status === "fulfilled" ? res.value : []))
-    .slice(0, 12);
+    .slice(0, 13);
   const sources: GroundingSource[] = items
     .filter((i) => i.sourceUrl)
     .map((i) => ({ title: i.title, uri: i.sourceUrl! }));
@@ -440,7 +442,7 @@ async function startServer() {
     }
   });
 
-  app.post("/api/consultations", (req, res) => {
+  app.post("/api/consultations", async (req, res) => {
     const payload = req.body ?? {};
     const validation = validateConsultationInput(payload);
     if (!validation.valid) {
@@ -470,13 +472,17 @@ async function startServer() {
     }
     consultationsLog.push(entry);
 
-    void forwardConsultationEmailIfConfigured(entry).catch((err) => {
-      console.warn("Optional Hostinger SMTP notification skipped:", err);
-    });
+    let emailForwarded = false;
+    try {
+      emailForwarded = await forwardConsultationEmailIfConfigured(entry);
+    } catch (err) {
+      console.warn("Hostinger SMTP consultation forwarding skipped:", err);
+    }
 
     return res.status(201).json({
       referenceId: entry.referenceId,
       submittedAt: entry.submittedAt,
+      emailForwarded,
       message: "Your briefing request has been logged with the SJ Associates Chambers Desk."
     });
   });

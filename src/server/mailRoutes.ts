@@ -187,20 +187,38 @@ export async function forwardConsultationEmailIfConfigured(entry: {
   practiceArea: string;
   briefSummary: string;
 }): Promise<boolean> {
-  const smtpUser = process.env.MAIL_SMTP_USER?.trim();
-  const smtpPass = process.env.MAIL_SMTP_PASS;
-  if (!smtpUser || !smtpPass) {
-    return false;
-  }
+  cleanupExpiredSessions();
 
-  const smtpHost = process.env.MAIL_SMTP_HOST?.trim() || HOSTINGER_MAIL_DEFAULTS.smtpHost;
-  const smtpPort = Number(process.env.MAIL_SMTP_PORT ?? HOSTINGER_MAIL_DEFAULTS.smtpPort);
   const recipient = process.env.MAIL_NOTIFY_TO?.trim() || HOSTINGER_MAIL_DEFAULTS.defaultEmail;
+  let smtpUser = process.env.MAIL_SMTP_USER?.trim();
+  let smtpPass = process.env.MAIL_SMTP_PASS;
+  let smtpHost = process.env.MAIL_SMTP_HOST?.trim() || HOSTINGER_MAIL_DEFAULTS.smtpHost;
+  let smtpPort = Number(process.env.MAIL_SMTP_PORT ?? HOSTINGER_MAIL_DEFAULTS.smtpPort);
+
+  // Fallback: if server env SMTP credentials aren't set, reuse an active authenticated Hostinger session
+  if (!smtpUser || !smtpPass) {
+    const activeSessions = Array.from(mailSessions.values()).sort(
+      (a, b) => b.lastUsedAt - a.lastUsedAt
+    );
+    const preferred =
+      activeSessions.find((s) => s.email.toLowerCase() === recipient.toLowerCase()) ||
+      activeSessions[0];
+    if (!preferred) {
+      return false;
+    }
+    smtpUser = preferred.email;
+    smtpPass = preferred.password;
+    smtpHost = preferred.smtpHost;
+    smtpPort = preferred.smtpPort;
+  }
 
   const transporter = nodemailer.createTransport({
     host: smtpHost,
     port: smtpPort,
     secure: smtpPort === 465,
+    connectionTimeout: 8000,
+    greetingTimeout: 8000,
+    socketTimeout: 12000,
     auth: {
       user: smtpUser,
       pass: smtpPass
@@ -219,7 +237,7 @@ export async function forwardConsultationEmailIfConfigured(entry: {
       `Client Email: ${entry.email}`,
       `Phone: ${entry.phone}`,
       `Practice Area: ${entry.practiceArea}`,
-      `Court: ${entry.courtSlug}`,
+      `Court / Tribunal: ${entry.courtSlug}`,
       "",
       "Brief Summary:",
       entry.briefSummary

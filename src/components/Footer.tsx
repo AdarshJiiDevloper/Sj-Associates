@@ -34,7 +34,7 @@ export function Footer() {
             </div>
 
             <p className="text-sm text-[#F3FAFF]/80 leading-relaxed max-w-sm">
-              Corporate &amp; Taxation Law Chambers · {PRINCIPAL_ADVOCATE.membership}. Representing enterprises before the Delhi High Court, Supreme Court, ITAT, CESTAT, and NCLAT.
+              Corporate &amp; Taxation Law Chambers · {PRINCIPAL_ADVOCATE.membership}. Representing businesses and boards before the Delhi High Court, Supreme Court, GSTAT, ITAT, CESTAT, and NCLAT.
             </p>
 
             <div>
@@ -94,6 +94,14 @@ export function Footer() {
               </li>
               <li>
                 <Link
+                  to="/courts/gstat"
+                  className="hover:text-[#DAF6EF] transition-colors"
+                >
+                  GSTAT Live Tribunal
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/courts/punjab-haryana-high-court"
                   className="hover:text-[#DAF6EF] transition-colors"
                 >
@@ -122,7 +130,7 @@ export function Footer() {
                   <Mail className="h-4 w-4" aria-hidden="true" />
                 </span>
                 <span className="text-xs font-bold uppercase tracking-[0.06em] text-[#F3FAFF] group-hover:text-[#DAF6EF] transition-colors break-all">
-                  Send Email · {CHAMBERS_OFFICES[0].email}
+                  {CHAMBERS_OFFICES[0].email}
                 </span>
               </a>
 
@@ -134,9 +142,23 @@ export function Footer() {
                   <Phone className="h-4 w-4" aria-hidden="true" />
                 </span>
                 <span className="text-xs font-bold uppercase tracking-[0.06em] text-[#F3FAFF] tabular-nums group-hover:text-[#DAF6EF] transition-colors">
-                  Make A Call · {CHAMBERS_OFFICES[0].phone}
+                  Mobile · {CHAMBERS_OFFICES[0].phone}
                 </span>
               </a>
+
+              {CHAMBERS_OFFICES[0].landline && (
+                <a
+                  href={`tel:${CHAMBERS_OFFICES[0].landline.replace(/\D/g, "")}`}
+                  className="flex items-center gap-3 group"
+                >
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#33566D] bg-[#33566D]/40 text-[#DAF6EF] group-hover:bg-[#DAF6EF] group-hover:text-[#0A2536] transition-colors">
+                    <Phone className="h-4 w-4" aria-hidden="true" />
+                  </span>
+                  <span className="text-xs font-bold uppercase tracking-[0.06em] text-[#F3FAFF] tabular-nums group-hover:text-[#DAF6EF] transition-colors">
+                    Chambers Office · {CHAMBERS_OFFICES[0].landline}
+                  </span>
+                </a>
+              )}
             </div>
             <div className="pt-1 space-y-2">
               <div className="flex items-start gap-2.5 text-xs text-[#F3FAFF]/85 leading-relaxed">
@@ -165,7 +187,7 @@ export function Footer() {
 
         {/* Bottom Legal & Back to Top Bar */}
         <div className="pt-6 border-t border-[#33566D]/50 flex flex-wrap items-center justify-between gap-4 text-xs text-[#F3FAFF]/75">
-          <span>© 2026 SJ Associates — Adv. Sanjay Kumar Singh | All Rights Reserved</span>
+          <span>© 2026 SJ Associates — Advocate Sanjay Kumar Singh | All Rights Reserved</span>
           <div className="flex flex-wrap items-center gap-5">
             <button
               type="button"
@@ -201,7 +223,7 @@ export function Footer() {
               As per the rules of the Bar Council of India, advocates are not permitted to advertise or solicit work.
             </p>
             <p>
-              By visiting this portal, you confirm that you requested information about SJ Associates and Adv. Sanjay Kumar Singh on your own initiative for informational and court-tracking purposes.
+              By visiting this portal, you confirm that you requested information about SJ Associates and Advocate Sanjay Kumar Singh on your own initiative for informational and court-tracking purposes.
             </p>
             <p>
               Nothing on this website counts as legal advice or creates a lawyer-client relationship. For advice on your case, please contact chambers directly.

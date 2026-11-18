@@ -20,6 +20,7 @@ export function CourtsPage() {
   );
 
   const supremeCount = COURTS_REGISTRY.filter((c) => c.tier === "supreme").length;
+  const tribunalCount = COURTS_REGISTRY.filter((c) => c.tier === "tribunal").length;
   const highCount = COURTS_REGISTRY.filter((c) => c.tier === "high").length;
 
   return (
@@ -35,10 +36,10 @@ export function CourtsPage() {
               className="text-4xl sm:text-5xl font-extrabold text-foreground leading-tight"
               style={{ textWrap: "balance" }}
             >
-              Supreme Court &amp; High Courts of India
+              Supreme Court, GSTAT &amp; High Courts of India
             </h1>
             <p className="text-base text-muted-foreground leading-relaxed">
-              Click any court below to read its latest orders, judgments, cause list notes, and official registry links in real time.
+              Click any court or tribunal below to read its latest orders, judgments, cause list notes, and official registry links in real time.
             </p>
           </div>
         </div>
@@ -73,6 +74,17 @@ export function CourtsPage() {
               }`}
             >
               Supreme Court ({supremeCount})
+            </button>
+            <button
+              type="button"
+              onClick={() => setTier("tribunal")}
+              className={`px-4 py-2 min-h-[40px] text-xs font-semibold rounded-full whitespace-nowrap shrink-0 transition-colors cursor-pointer ${
+                tier === "tribunal"
+                  ? "bg-card text-foreground shadow-xs"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              GSTAT &amp; Tribunals ({tribunalCount})
             </button>
             <button
               type="button"
@@ -119,7 +131,7 @@ export function CourtsPage() {
         {/* Results Count */}
         <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-muted-foreground">
           <span className="tabular-nums">
-            Showing {filteredCourts.length} of {COURTS_REGISTRY.length} constitutional courts · Supreme Court on top, ordered by distance from New Delhi
+            Showing {filteredCourts.length} of {COURTS_REGISTRY.length} constitutional courts &amp; tribunals · Supreme Court on top, ordered by distance from New Delhi
           </span>
           {(tier !== "all" || region !== "All" || query.trim() !== "") && (
             <button
@@ -195,7 +207,11 @@ export function CourtsPage() {
                     <div className="space-y-2.5">
                       <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground tabular-nums">
                         <span className="font-semibold text-primary">
-                          {court.tier === "supreme" ? "Apex Court" : "High Court"}
+                          {court.tier === "supreme"
+                            ? "Apex Court"
+                            : court.tier === "tribunal"
+                            ? "Appellate Tribunal"
+                            : "High Court"}
                         </span>
                         <span aria-hidden="true">·</span>
                         <span>{court.city}</span>

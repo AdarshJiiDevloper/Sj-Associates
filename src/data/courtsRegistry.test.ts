@@ -24,6 +24,11 @@ test("getCourtBySlug finds Supreme Court and High Courts accurately", () => {
   assert.ok(chandigarh);
   assert.equal(chandigarh.city, "Chandigarh");
 
+  const gstat = getCourtBySlug("gstat");
+  assert.ok(gstat);
+  assert.equal(gstat.tier, "tribunal");
+  assert.equal(gstat.city, "New Delhi");
+
   const patna = getCourtBySlug("patna-high-court");
   assert.ok(patna);
   assert.equal(patna.city, "Patna");
@@ -31,17 +36,18 @@ test("getCourtBySlug finds Supreme Court and High Courts accurately", () => {
   assert.equal(getCourtBySlug("non-existent-court"), undefined);
 });
 
-test("COURTS_REGISTRY keeps Supreme Court on top and sorts High Courts by distance from Delhi", () => {
+test("COURTS_REGISTRY keeps Supreme Court on top and sorts High Courts & Tribunals by distance from Delhi", () => {
   assert.equal(COURTS_REGISTRY[0].slug, "supreme-court-of-india");
   assert.equal(COURTS_REGISTRY[1].slug, "delhi-high-court");
-  assert.equal(COURTS_REGISTRY[2].slug, "punjab-haryana-high-court");
+  assert.equal(COURTS_REGISTRY[2].slug, "gstat");
+  assert.equal(COURTS_REGISTRY[3].slug, "punjab-haryana-high-court");
   assert.equal(COURTS_REGISTRY[COURTS_REGISTRY.length - 1].slug, "madras-high-court");
 
-  const highCourts = COURTS_REGISTRY.slice(1);
-  for (let i = 1; i < highCourts.length; i++) {
+  const otherForums = COURTS_REGISTRY.slice(1);
+  for (let i = 1; i < otherForums.length; i++) {
     assert.ok(
-      highCourts[i].distanceFromDelhiKm >= highCourts[i - 1].distanceFromDelhiKm,
-      `Expected ${highCourts[i].slug} (${highCourts[i].distanceFromDelhiKm} km) >= ${highCourts[i - 1].slug} (${highCourts[i - 1].distanceFromDelhiKm} km)`
+      otherForums[i].distanceFromDelhiKm >= otherForums[i - 1].distanceFromDelhiKm,
+      `Expected ${otherForums[i].slug} (${otherForums[i].distanceFromDelhiKm} km) >= ${otherForums[i - 1].slug} (${otherForums[i - 1].distanceFromDelhiKm} km)`
     );
   }
 
@@ -54,6 +60,10 @@ test("filterCourts filters by tier, region, and search query", () => {
   const onlySupreme = filterCourts(COURTS_REGISTRY, { tier: "supreme" });
   assert.equal(onlySupreme.length, 1);
   assert.equal(onlySupreme[0].slug, "supreme-court-of-india");
+
+  const onlyTribunal = filterCourts(COURTS_REGISTRY, { tier: "tribunal" });
+  assert.equal(onlyTribunal.length, 1);
+  assert.equal(onlyTribunal[0].slug, "gstat");
 
   const onlyHigh = filterCourts(COURTS_REGISTRY, { tier: "high" });
   assert.equal(onlyHigh.length, 11);
@@ -68,6 +78,10 @@ test("filterCourts filters by tier, region, and search query", () => {
   const chandigarhMatch = filterCourts(COURTS_REGISTRY, { query: "chandigarh" });
   assert.equal(chandigarhMatch.length, 1);
   assert.equal(chandigarhMatch[0].slug, "punjab-haryana-high-court");
+
+  const gstatMatch = filterCourts(COURTS_REGISTRY, { query: "gstat" });
+  assert.equal(gstatMatch.length, 1);
+  assert.equal(gstatMatch[0].slug, "gstat");
 });
 
 test("parseCourtReportResponse extracts fenced JSON and normalizes categories", () => {

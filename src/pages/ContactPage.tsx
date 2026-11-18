@@ -20,7 +20,7 @@ export function ContactPage() {
             Contact Chambers
           </h1>
           <p className="text-base text-[#33566D] leading-relaxed max-w-3xl">
-            Visit or write to {PRINCIPAL_ADVOCATE.name} and SJ Associates at our Delhi chambers on Captain Satish Marg, Rishi Nagar, Pitampura (110034), or reach our enterprise desks in Mumbai and Bengaluru for a matter briefing.
+            Visit or write to {PRINCIPAL_ADVOCATE.name} and SJ Associates at our Delhi chambers on Captain Satish Marg, Rishi Nagar, Pitampura (110034), or reach our corporate desks in Mumbai and Bengaluru for a matter briefing.
           </p>
         </div>
       </section>
@@ -44,7 +44,7 @@ export function ContactPage() {
             <div className="aspect-[4/3] overflow-hidden bg-[#0A2536]">
               <ResilientImage
                 src={ADVOCATE_DESK_IMAGE}
-                alt="Adv. Sanjay Kumar Singh at the Pitampura, Delhi chambers conference desk"
+                alt="Advocate Sanjay Kumar Singh at the Pitampura, Delhi chambers conference desk"
                 fallbackLabel="SJ Associates Chambers"
                 imgClassName="object-cover object-center"
               />
@@ -90,8 +90,34 @@ export function ContactPage() {
                     )}
                   </div>
                 </div>
-                <p className="tabular-nums text-foreground font-medium">{office.phone}</p>
-                <p>{office.email}</p>
+                <div className="space-y-1">
+                  <p className="tabular-nums text-foreground font-medium">
+                    <a
+                      href={`tel:${office.phone.replace(/\s+/g, "")}`}
+                      className="hover:text-primary transition-colors"
+                    >
+                      Mobile: {office.phone}
+                    </a>
+                  </p>
+                  {office.landline && (
+                    <p className="tabular-nums text-foreground font-medium">
+                      <a
+                        href={`tel:${office.landline.replace(/\D/g, "")}`}
+                        className="hover:text-primary transition-colors"
+                      >
+                        Office: {office.landline}
+                      </a>
+                    </p>
+                  )}
+                  <p>
+                    <a
+                      href={`mailto:${office.email}`}
+                      className="text-primary hover:underline font-medium"
+                    >
+                      {office.email}
+                    </a>
+                  </p>
+                </div>
                 <div className="pt-2 border-t border-border flex flex-wrap items-center justify-between gap-2">
                   <p className="text-xs">{office.hours}</p>
                   {office.mapUrl && (

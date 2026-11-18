@@ -51,9 +51,9 @@ interface CrossCourtBriefingItem {
 
 const IMPACT_MILESTONES = [
   { value: 1450, suffix: "+", label: "Corporate & Tax Matters Argued Before Courts" },
-  { value: 12, suffix: "", label: "High Courts & Supreme Court Tracked Live" },
+  { value: 13, suffix: "", label: "GSTAT, High Courts & Supreme Court Tracked Live" },
   { value: 20, suffix: "+", label: "Years in Taxation & Corporate Litigation" },
-  { value: 3, suffix: "", label: "Corporate Desks — Delhi, Mumbai & Bengaluru" }
+  { value: 3, suffix: "", label: "Chambers Desks — Delhi, Mumbai & Bengaluru" }
 ];
 
 const MATTER_STAGES = ["Pre-Filing", "Pending Appeal", "Urgent Stay"] as const;
@@ -192,6 +192,7 @@ export function HomePage({ onOpenConsultation }: HomePageProps) {
   const [quickError, setQuickError] = useState<string | null>(null);
   const [quickSending, setQuickSending] = useState(false);
   const [quickSuccessRef, setQuickSuccessRef] = useState<string | null>(null);
+  const [quickEmailForwarded, setQuickEmailForwarded] = useState(false);
 
   async function loadBriefings(refresh = false) {
     setBriefingsLoading(true);
@@ -267,6 +268,7 @@ export function HomePage({ onOpenConsultation }: HomePageProps) {
         throw new Error(data.error || "Could not send your note.");
       }
       setQuickSuccessRef(data.referenceId);
+      setQuickEmailForwarded(Boolean(data.emailForwarded));
       setQuickName("");
       setQuickEmail("");
       setQuickPhone("");
@@ -326,10 +328,20 @@ export function HomePage({ onOpenConsultation }: HomePageProps) {
               <span className="block mt-1">Stands For You</span>
             </h1>
 
-            <p className="mx-auto max-w-2xl text-sm sm:text-lg text-[#33566D] leading-relaxed px-1">
-              Led by <strong className="text-[#0A2536]">{PRINCIPAL_ADVOCATE.name}</strong> (
-              Delhi High Court · {PRINCIPAL_ADVOCATE.membership}), exclusively advising enterprises and boards on taxation, GST, customs, corporate law, and NCLT disputes before Indian courts.
-            </p>
+            <div className="mx-auto max-w-2xl space-y-1.5 text-center px-1">
+              <p className="text-base sm:text-xl font-extrabold text-[#0A2536]">
+                {PRINCIPAL_ADVOCATE.name}
+              </p>
+              <p className="text-xs sm:text-base font-bold uppercase tracking-[0.12em] text-[#0A2536] whitespace-nowrap">
+                {PRINCIPAL_ADVOCATE.courtLine}
+              </p>
+              <p className="text-[11px] sm:text-base font-semibold text-[#33566D] whitespace-nowrap">
+                {PRINCIPAL_ADVOCATE.membership}
+              </p>
+              <p className="pt-2 text-sm sm:text-base text-[#33566D] leading-relaxed">
+                Focused on Income Tax &amp; GST filings, GSTAT appeals, customs, business setup, and corporate litigation before Indian courts.
+              </p>
+            </div>
 
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 pt-2 max-w-md sm:max-w-none mx-auto">
               <Button
@@ -359,10 +371,10 @@ export function HomePage({ onOpenConsultation }: HomePageProps) {
           {/* Bottom Trust Bar */}
           <div className="mt-10 sm:mt-14 pt-5 sm:pt-6 border-t border-[#0A2536]/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-6 text-xs text-[#33566D]">
             <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-5 sm:gap-x-8 gap-y-2 font-semibold text-[#0A2536]/80">
-              <span>Direct Tax, GST &amp; Customs</span>
-              <span>Corporate &amp; NCLT Advisory</span>
+              <span>Income Tax &amp; GST Filing</span>
+              <span>GSTAT &amp; Customs Appeals</span>
+              <span>Business &amp; MSME Setup</span>
               <span>Delhi HC &amp; Supreme Court</span>
-              <span>International Council Of Jurists</span>
             </div>
             <button
               type="button"
@@ -436,18 +448,18 @@ export function HomePage({ onOpenConsultation }: HomePageProps) {
                 <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white border border-border text-[#0A2536]">
                   <Scale className="h-5 w-5" aria-hidden="true" />
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0A2536]">Tax &amp; GST Litigation</h3>
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0A2536]">Income Tax &amp; GST Filing</h3>
                 <p className="text-sm text-[#33566D] leading-relaxed">
-                  GST show-cause writs, GSTAT Section 112 tribunal appeals, Income Tax Section 148 reassessments, customs valuation appeals, and corporate stays argued before High Courts, GSTAT, ITAT, CESTAT, and the Supreme Court.
+                  ITR &amp; TDS returns, GSTR-1/3B/9 reconciliations, GST show-cause replies, GSTAT Section 112 tribunal appeals, Section 148 reassessments, and High Court tax stays.
                 </p>
               </div>
               <div className="flex items-center justify-between pt-2">
                 <span className="text-xs font-medium text-[#33566D]">
-                  Delhi HC · GSTAT · ITAT · Supreme Court
+                  Income Tax · GST · GSTAT · Supreme Court
                 </span>
                 <Link
                   to="/about"
-                  aria-label="Meet Adv. Sanjay Kumar Singh and Counsel"
+                  aria-label="Meet Advocate Sanjay Kumar Singh and Counsel"
                   className={`inline-flex h-11 w-11 items-center justify-center rounded-full border transition-all duration-300 ${
                     hoveredCard === 0
                       ? "bg-[#0A2536] text-[#F3FAFF] border-[#0A2536] shadow-xs scale-105"
@@ -479,14 +491,14 @@ export function HomePage({ onOpenConsultation }: HomePageProps) {
                 >
                   <BookOpen className="h-5 w-5" aria-hidden="true" />
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0A2536]">Live Court Reports</h3>
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0A2536]">GSTAT &amp; Live Court Reports</h3>
                 <p className="text-sm text-[#33566D] leading-relaxed">
-                  Open live court updates, recent orders, and cause list links for the Supreme Court and eleven major High Courts across India—including Delhi, Bombay, Chandigarh, and Patna.
+                  Open live court updates, recent orders, and cause list links for the Supreme Court, GSTAT (Principal Bench), and eleven major High Courts across India—including Delhi, Bombay, Chandigarh, and Patna.
                 </p>
               </div>
               <div className="flex items-center justify-between pt-2">
                 <span className="text-xs font-medium text-[#33566D]">
-                  12 Courts Updated Live
+                  {COURTS_REGISTRY.length} Courts &amp; GSTAT Updated Live
                 </span>
                 <Link
                   to="/courts"
@@ -522,14 +534,14 @@ export function HomePage({ onOpenConsultation }: HomePageProps) {
                 >
                   <ShieldCheck className="h-5 w-5" aria-hidden="true" />
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0A2536]">Corporate &amp; Board Advisory</h3>
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0A2536]">Business &amp; Compliance Setup</h3>
                 <p className="text-sm text-[#33566D] leading-relaxed">
-                  Commercial contracts, shareholder agreements, NCLT restructuring, and proactive tax-compliance opinions structured before disputes reach court.
+                  Complete statutory setup—Company &amp; LLP incorporation, Partnership registration, GSTIN, MSME Udyam, IEC/DGFT licensing, Trademarks, accounting, and board advisory.
                 </p>
               </div>
               <div className="flex items-center justify-between pt-2">
                 <span className="text-xs font-medium text-[#33566D]">
-                  Enterprises, Boards &amp; Promoters
+                  Businesses, Founders &amp; Boards
                 </span>
                 <button
                   type="button"
@@ -736,7 +748,7 @@ export function HomePage({ onOpenConsultation }: HomePageProps) {
                 to="/courts"
                 className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.08em] text-[#0A2536] hover:text-[#33566D] transition-colors"
               >
-                See All 12 Courts
+                See All {COURTS_REGISTRY.length} Courts &amp; GSTAT
                 <span className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-border bg-white">
                   <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
                 </span>
@@ -881,7 +893,7 @@ export function HomePage({ onOpenConsultation }: HomePageProps) {
         >
           <ResilientImage
             src={ADVOCATE_CORRIDOR_IMAGE}
-            alt="Adv. Sanjay Kumar Singh in High Court robes along the New Delhi court colonnade"
+            alt="Advocate Sanjay Kumar Singh in High Court robes along the New Delhi court colonnade"
             className="h-full w-full object-cover object-[72%_20%] opacity-65 sm:opacity-80"
           />
           <div
@@ -927,6 +939,7 @@ export function HomePage({ onOpenConsultation }: HomePageProps) {
                         </p>
                         <p className="text-xs text-[#DAF6EF]/85">
                           Ref: <span className="font-mono">{quickSuccessRef}</span>. SJ Associates will contact you shortly.
+                          {quickEmailForwarded ? " Delivered to sanjaysingh@legalsja.com." : ""}
                         </p>
                       </div>
                     </div>

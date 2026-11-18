@@ -109,7 +109,7 @@ export function CorporateSolutionsSection({
               </h2>
               <p className="text-sm sm:text-base text-[#33566D] leading-relaxed">
                 Select any taxation, registration, or corporate service with{" "}
-                <strong className="text-[#0A2536]">+</strong> to build a single chambers brief for Adv. Sanjay Kumar Singh&apos;s team.
+                <strong className="text-[#0A2536]">+</strong> to build a single chambers brief for Advocate Sanjay Kumar Singh&apos;s team.
               </p>
             </div>
 
