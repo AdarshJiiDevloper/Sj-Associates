@@ -16,6 +16,10 @@ import {
   type GroundingSource,
   type LiveCourtReport
 } from "./src/data/courtsRegistry";
+import {
+  createMailRouter,
+  forwardConsultationEmailIfConfigured
+} from "./src/server/mailRoutes";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT ?? 3000);
@@ -466,12 +470,18 @@ async function startServer() {
     }
     consultationsLog.push(entry);
 
+    void forwardConsultationEmailIfConfigured(entry).catch((err) => {
+      console.warn("Optional Hostinger SMTP notification skipped:", err);
+    });
+
     return res.status(201).json({
       referenceId: entry.referenceId,
       submittedAt: entry.submittedAt,
       message: "Your briefing request has been logged with the SJ Associates Chambers Desk."
     });
   });
+
+  app.use("/api/mail", createMailRouter());
 
   app.use("/api/*", (req, res) => {
     res.status(404).json({

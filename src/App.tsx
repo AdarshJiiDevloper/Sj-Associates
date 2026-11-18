@@ -24,13 +24,15 @@ import { CourtDetailPage } from "@/src/pages/CourtDetailPage";
 import { PracticeAreasPage } from "@/src/pages/PracticeAreasPage";
 import { AboutPage } from "@/src/pages/AboutPage";
 import { ContactPage } from "@/src/pages/ContactPage";
+import { MailPage } from "@/src/pages/MailPage";
 
 const ROUTE_TITLES: Record<string, string> = {
   "/": "SJ Associates | Adv. Sanjay Kumar Singh — Corporate & Tax Law Chambers",
   "/courts": "Live Corporate & Tax Court Reports | SJ Associates",
   "/practice": "Corporate & Tax Practice Areas | SJ Associates — Adv. Sanjay Kumar Singh",
   "/about": "Adv. Sanjay Kumar Singh | Corporate & Tax Counsel — SJ Associates",
-  "/contact": "Contact Chambers | SJ Associates — New Delhi, Mumbai & Bengaluru"
+  "/contact": "Contact Chambers | SJ Associates — New Delhi, Mumbai & Bengaluru",
+  "/mail": "Chambers Webmail | SJ Associates (legalsja.com)"
 };
 
 function RouteMetadataAndScroll() {
@@ -84,6 +86,7 @@ function NotFoundView() {
 }
 
 function AppShell() {
+  const location = useLocation();
   const [consultOpen, setConsultOpen] = useState(false);
   const [consultCourtSlug, setConsultCourtSlug] = useState<string | undefined>(undefined);
   const [consultBriefNote, setConsultBriefNote] = useState<string | undefined>(undefined);
@@ -92,6 +95,17 @@ function AppShell() {
     setConsultCourtSlug(courtSlug);
     setConsultBriefNote(briefNote);
     setConsultOpen(true);
+  }
+
+  if (location.pathname === "/mail") {
+    return (
+      <>
+        <RouteMetadataAndScroll />
+        <ErrorBoundary>
+          <MailPage />
+        </ErrorBoundary>
+      </>
+    );
   }
 
   return (
